@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env files (สำคัญมาก: ห้ามเอา API Keys ขึ้น GitHub)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vite / Build outputs
+dist/
+dist-ssr/
+*.cache
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+# Production (ถ้าใช้ Next.js หรืออื่นๆ)
+.next/
+out/
