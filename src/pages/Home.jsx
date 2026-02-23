@@ -18,30 +18,49 @@ export default function Home() {
     }, []);
 
     const particlesComponent = useMemo(() => {
-        if (!init) return null;
-        return (
-            <Particles
-                id="tsparticles"
-                className="fixed inset-0"
-                options={{
-                    fullScreen: { enable: true, zIndex: -1 },
-                    background: { color: "#f9fafb" },
-                    particles: {
-                        color: { value: "#2563eb" },
-                        links: { color: "#2563eb", distance: 150, enable: true, opacity: 0.3, width: 1 },
-                        move: { enable: true, speed: 1.5, outModes: { default: "bounce" } },
-                        number: { value: 80, density: { enable: true, area: 800 } },
-                        opacity: { value: 0.5 },
-                        size: { value: { min: 1, max: 3 } },
+    if (!init) return null;
+    return (
+        <Particles
+            id="tsparticles"
+            className="fixed inset-0"
+            options={{
+                fullScreen: { enable: true, zIndex: -1 },
+                background: { color: "#050505" }, 
+                particles: {
+                    color: { value: "#3b82f6" }, // เปลี่ยนเป็นสีฟ้าที่สว่างขึ้น (Blue-500)
+                    links: { 
+                        color: "#3b82f6", 
+                        distance: 150, 
+                        enable: true, 
+                        opacity: 0.5, // เพิ่มความสว่างของเส้นจาก 0.2 เป็น 0.5
+                        width: 1.5    // เพิ่มความหนาของเส้นเล็กน้อยเพื่อให้ดูคมชัด
                     },
-                    interactivity: {
-                        events: { onHover: { enable: true, mode: "grab" } },
-                        modes: { grab: { distance: 200, links: { opacity: 0.5 } } }
+                    move: { enable: true, speed: 1.2, outModes: { default: "bounce" } },
+                    number: { value: 70, density: { enable: true, area: 800 } }, // เพิ่มจำนวนจุดเล็กน้อย
+                    opacity: { 
+                        value: 0.6, // เพิ่มความสว่างของจุด
+                        animation: { enable: true, speed: 1, minimumValue: 0.2, sync: false } 
+                    },
+                    size: { value: { min: 1, max: 3 } },
+                },
+                interactivity: {
+                    events: { 
+                        onHover: { 
+                            enable: true, 
+                            mode: "grab" // เมื่อเมาส์ไปใกล้ เส้นจะดึงเข้าหาเมาส์
+                        } 
+                    },
+                    modes: { 
+                        grab: { 
+                            distance: 220, 
+                            links: { opacity: 0.8 } // เมื่อเมาส์จ่อ เส้นจะสว่างเป็นพิเศษ (0.8)
+                        } 
                     }
-                }}
-            />
-        );
-    }, [init]);
+                }
+            }}
+        />
+    );
+}, [init]);
 
     const words = ["Nicknamezanarak", "เป็น AI Developer", "และเป็น Web Developer"];
     const [index, setIndex] = useState(0);
@@ -72,28 +91,27 @@ export default function Home() {
     };
 
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-64px)] w-full overflow-hidden">
+        <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-64px)] w-full overflow-hidden bg-[#050505] text-white">
             {particlesComponent}
 
             <div className="relative z-10 text-center px-4 w-full pt-8 pb-2"> 
-                <h1 className="font-extrabold text-gray-900 mb-4 leading-tight flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-4 overflow-visible whitespace-nowrap">
+                <h1 className="font-extrabold text-white mb-4 leading-tight flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-4 overflow-visible whitespace-nowrap">
                     <span className="shrink-0" style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
                         สวัสดีครับ ผม
                     </span>
                     <div className="inline-flex items-center shrink-0">
-                        <span className="text-blue-600 border-r-4 border-blue-600 animate-pulse"
+                        <span className="text-blue-500 border-r-4 border-blue-500 animate-pulse"
                               style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
                             {words[index].substring(0, subIndex)}
                         </span>
                     </div>
                 </h1>
                 
-                <p className="text-base md:text-lg text-gray-600 mb-6 max-w-xl mx-auto font-medium leading-snug">
+                <p className="text-base md:text-lg text-gray-400 mb-8 max-w-xl mx-auto font-medium leading-snug italic">
                     นักศึกษา Electronics Computer จาก พระจอมเกล้าพระนครเหนือ <br className="hidden md:block" />
                     ผู้หลงใหลในการสร้างสรรค์ AI และ Web Application
                 </p>
 
-                {/* ส่วนที่ปรับปรุง: เพิ่ม Interactive Hover ให้กับปุ่ม */}
                 <div className="flex flex-wrap justify-center gap-4 mb-4">
                     <Link 
                         to="/resume" 
@@ -103,14 +121,14 @@ export default function Home() {
                     </Link>
                     <Link 
                         to="/contact" 
-                        className="w-40 bg-white text-blue-600 border-2 border-blue-600 py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-blue-50 shadow-md text-center text-sm text-nowrap"
+                        className="w-40 bg-transparent text-white border-2 border-white/20 py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/10 hover:border-white/40 shadow-md text-center text-sm text-nowrap"
                     >
                         ติดต่อผม
                     </Link>
                 </div>
             </div>
 
-            <div className="w-full overflow-hidden py-4 z-10"> 
+            <div className="w-full overflow-hidden py-8 z-10"> 
                 <motion.div className="flex gap-8 w-max px-4" variants={marqueeVariants} animate="animate">
                     {[1, 2, 3, 4, 5].map((set) => (
                         <div key={set} className="flex gap-8 pr-8 items-center">
@@ -127,9 +145,9 @@ export default function Home() {
 
 function HighlightCard({ title, desc }) {
     return (
-        <div className="p-6 bg-white/100 rounded-[1.2rem] shadow-sm border border-gray-100 w-72 h-25 shrink-0 text-left flex flex-col justify-center transition-transform hover:scale-105 duration-300">
-            <h3 className="font-bold text-blue-600 mb-1 text-base leading-tight">{title}</h3>
-            <p className="text-xs text-gray-500 leading-relaxed font-medium">
+        <div className="p-6 bg-white/5 backdrop-blur-md rounded-[1.2rem] shadow-2xl border border-white/10 w-72 h-25 shrink-0 text-left flex flex-col justify-center transition-transform hover:scale-105 duration-300">
+            <h3 className="font-bold text-blue-400 mb-1 text-base leading-tight uppercase tracking-tight">{title}</h3>
+            <p className="text-xs text-gray-400 leading-relaxed font-medium italic">
                 {desc}
             </p>
         </div>

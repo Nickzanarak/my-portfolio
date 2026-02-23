@@ -42,3 +42,6 @@ Thumbs.db
 # Production (ถ้าใช้ Next.js หรืออื่นๆ)
 .next/
 out/
+
+.env
+.env.local
