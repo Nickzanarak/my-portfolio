@@ -6,10 +6,29 @@ export default function Transcript() {
     const { scrollY } = useScroll();
     const bgY = useTransform(scrollY, [0, 1000], [0, 300]);
 
+    // 1. ปรับปรุง Page Transition เป็นแบบ 3D Flip (พลิกกระดาษ)
     const pageVariants = {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: -20 }
+        initial: {
+            opacity: 0,
+            rotateY: -30, // พลิกจากด้านข้าง
+            x: -50,
+            originX: 0
+        },
+        animate: {
+            opacity: 1,
+            rotateY: 0,
+            x: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1]
+            }
+        },
+        exit: {
+            opacity: 0,
+            rotateY: 30,
+            x: 50,
+            transition: { duration: 0.4 }
+        }
     };
 
     const semesters = [
@@ -62,15 +81,15 @@ export default function Transcript() {
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={{ duration: 0.6 }}
+            className="perspective-2000" // เพิ่มมิติความลึกให้แอนิเมชัน 3D
         >
             <div className="bg-[#050505] text-white min-h-screen font-sans overflow-hidden relative selection:bg-blue-500/30">
                 <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-                    <motion.div 
+                    <motion.div
                         style={{ y: bgY }}
-                        animate={{ 
+                        animate={{
                             scale: [1, 1.1, 1],
-                            opacity: [0.1, 0.2, 0.1] 
+                            opacity: [0.1, 0.2, 0.1]
                         }}
                         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
                         className="absolute bottom-[-10%] left-[-5%] w-[800px] h-[800px] bg-blue-600/10 blur-[150px] rounded-full"
@@ -86,24 +105,22 @@ export default function Transcript() {
                         <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
                             <div>
                                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase italic">
-                                    Official <br/>
+                                    Official <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">Transcript</span>
                                 </h1>
                                 <p className="text-gray-500 mt-6 text-xl font-medium uppercase tracking-widest italic">
-                                    KMUTNB | College of Industrial Technology 
+                                    KMUTNB | College of Industrial Technology
                                 </p>
                             </div>
-                            
-                            {/* ส่วน Header ที่มีปุ่ม Download อยู่ใต้กล่อง Current GPAX */}
+
                             <div className="flex flex-col gap-4 w-full lg:w-auto">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <InfoCard label="Current GPAX" value="3.00" icon={<Award size={20}/>} />
-                                    <InfoCard label="Total Credits" value="63" icon={<CheckCircle2 size={20}/>} />
+                                    <InfoCard label="Current GPAX" value="3.00" icon={<Award size={20} />} />
+                                    <InfoCard label="Total Credits" value="63" icon={<CheckCircle2 size={20} />} />
                                 </div>
-                                
-                                {/* ปุ่มดาวน์โหลดใต้กล่อง GPAX */}
-                                <a 
-                                    href="/Transcript.pdf" 
+
+                                <a
+                                    href="/Transcript.pdf"
                                     download="Pathawee_Transcript.pdf"
                                     className="flex items-center justify-center gap-3 bg-blue-600 hover:bg-white hover:text-black text-white px-6 py-4 rounded-2xl font-black uppercase text-xs transition-all duration-500 shadow-2xl shadow-blue-600/20"
                                 >
@@ -119,16 +136,16 @@ export default function Transcript() {
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
                                     <h3 className="text-4xl font-black uppercase italic tracking-tighter flex items-center gap-4">
                                         <Calendar className="text-blue-500" /> {sem.title}
-                                        {sem.isLatest && <span className="text-xs bg-blue-600 text-white px-3 py-1 rounded-full not-italic tracking-normal flex items-center gap-1"><Star size={10}/> Latest</span>}
+                                        {sem.isLatest && <span className="text-xs bg-blue-600 text-white px-3 py-1 rounded-full not-italic tracking-normal flex items-center gap-1"><Star size={10} /> Latest</span>}
                                     </h3>
                                     <div className="text-2xl font-black font-mono text-blue-500 bg-blue-500/10 px-6 py-2 rounded-full border border-blue-500/20">
-                                        GPA: {sem.gpa} 
+                                        GPA: {sem.gpa}
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-4">
                                     {sem.courses.map((course, cIdx) => (
-                                        <motion.div 
+                                        <motion.div
                                             key={cIdx}
                                             whileHover={{ x: 10 }}
                                             className="group flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 hover:bg-white/[0.04] transition-all duration-500"
@@ -152,20 +169,7 @@ export default function Transcript() {
                             </div>
                         ))}
                     </div>
-
-                    <footer className="mt-32 p-12 rounded-[3rem] bg-gradient-to-br from-blue-600 to-indigo-900 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden group">
-                        <FileText className="absolute -bottom-10 -right-10 text-white/10 group-hover:scale-110 transition-transform duration-700" size={240} />
-                        <div className="relative z-10 text-center md:text-left">
-                            <h4 className="text-3xl font-black uppercase italic leading-none mb-4">Graduation Status</h4>
-                            <p className="text-blue-100 font-medium italic opacity-80 uppercase tracking-widest text-sm">
-                                "A Cumulative Grade Point Average of 2.00 is required for graduation." 
-                            </p>
-                        </div>
-                        <div className="relative z-10 flex flex-col items-center md:items-end">
-                            <span className="text-xs font-black uppercase tracking-[0.3em] text-blue-200 mb-2">Issued On </span>
-                            <span className="text-2xl font-black italic uppercase tracking-tighter">February 2, 2026</span>
-                        </div>
-                    </footer>
+                    {/* ส่วน Footer Decor ที่มีข้อมูล Graduation Status ได้ถูกเอาออกเรียบร้อยแล้ว */}
                 </div>
             </div>
         </motion.div>

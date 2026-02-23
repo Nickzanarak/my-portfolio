@@ -41,7 +41,7 @@ export default function About() {
             {/* Main Wrapper */}
             <div className="bg-[#050505] text-white min-h-screen font-sans overflow-x-hidden relative">
                 
-                {/* --- ส่วนพื้นหลัง Animated Background Elements (ปรับปรุงใหม่) --- */}
+                {/* --- ส่วนพื้นหลัง Animated Background Elements --- */}
                 <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
                     {/* ก้อน Glow สีฟ้า (ขวาบน)  */}
                     <motion.div 
@@ -68,7 +68,6 @@ export default function About() {
                 <div className="relative z-10">
                     {/* 1. Hero Section */}
                     <section className="min-h-[65vh] flex items-center max-w-7xl mx-auto px-6 border-b border-white/10 py-0 relative">
-                        {/* Glow เล็กๆ ประจำ Section */}
                         <motion.div 
                             animate={{ opacity: [0.1, 0.3, 0.1] }}
                             transition={{ duration: 5, repeat: Infinity }}
@@ -91,15 +90,15 @@ export default function About() {
                                         transition={{ duration: 0.8, ease: "circOut" }}
                                         className="text-6xl md:text-8xl font-black tracking-tighter leading-none mb-10 uppercase"
                                     >
-                                        I'M <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">NICKNAME.</span>
+                                        I'M <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">PATHAWEE.</span>
                                     </motion.h1>
                                 </div>
 
                                 <div className="text-xl md:text-2xl lg:text-[1.75rem] text-gray-300 font-light leading-[1.8] max-w-full italic">
                                     <p className="mb-2">ผมเป็นนักศึกษา <span className="text-white font-bold italic whitespace-nowrap">สาขาเทคโนโลยีอิเล็กทรอนิกส์ (คอมพิวเตอร์)</span></p>
-                                    <p className="mb-2">จาก <span className="text-white font-bold italic whitespace-nowrap text-nowrap">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</span></p>
+                                    <p className="mb-2">จาก <span className="text-white font-bold italic whitespace-nowrap">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</span></p>
                                     <p>โดยมีความสนใจด้านการพัฒนา <span className="text-blue-500 font-bold underline decoration-blue-500/20 underline-offset-8">AI</span> และ <span className="text-blue-500 font-bold underline decoration-blue-500/20 underline-offset-8">Web Application</span></p>
-                                    <p className="mt-2 text-gray-400">มุ่งเน้นการสร้างระบบที่ช่วยเพิ่มประสิทธิภาพการทำงาน และยกระดับประสบการณ์ของผู้ใช้งานให้ดียิ่งขึ้น</p>
+                                    <p className="mt-2 text-gray-400">มุ่งเน้นการใช้เทคโนโลยีสมัยใหม่ในการแก้ปัญหาและสร้างนวัตกรรมที่มีประสิทธิภาพ</p>
                                 </div>
                             </motion.div>
 
@@ -133,14 +132,14 @@ export default function About() {
                             className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative z-10"
                         >
                             <div className="md:col-span-4">
-                                <h2 className="text-5xl font-black tracking-tighter uppercase leading-none text-nowrap">
+                                <h2 className="text-5xl font-black tracking-tighter uppercase leading-none">
                                     Education<br/>
                                     <span className="text-blue-600">Background</span>
                                 </h2>
                             </div>
                             <div className="md:col-span-8 border-l-4 border-black pl-10 py-2">
                                 <h3 className="text-3xl md:text-4xl font-black mb-2 uppercase tracking-tight">
-                                    King Mongkut’s University of Technology North Bangkok
+                                    King Mongkut's University of Technology North Bangkok
                                 </h3>
                                 <p className="text-xl font-bold text-blue-600 mb-1">College of Industrial Technology</p>
                                 <p className="text-lg text-gray-500 font-bold uppercase tracking-widest italic">

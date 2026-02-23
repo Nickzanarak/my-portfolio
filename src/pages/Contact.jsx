@@ -24,10 +24,28 @@ export default function Contact() {
         });
     };
 
+    // 1. ปรับปรุง Page Transition เป็นแบบ Blur Focus + Brightness
     const pageVariants = {
-        initial: { opacity: 0, scale: 0.98 },
-        animate: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 1.02 }
+        initial: { 
+            opacity: 0, 
+            filter: "blur(20px) brightness(0.5)",
+            scale: 1.05
+        },
+        animate: { 
+            opacity: 1, 
+            filter: "blur(0px) brightness(1)",
+            scale: 1,
+            transition: { 
+                duration: 1, 
+                ease: [0.16, 1, 0.3, 1] 
+            }
+        },
+        exit: { 
+            opacity: 0, 
+            filter: "blur(20px)",
+            scale: 0.95,
+            transition: { duration: 0.4 } 
+        }
     };
 
     const socials = [
@@ -60,7 +78,6 @@ export default function Contact() {
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={{ duration: 0.6 }}
             className="min-h-screen bg-[#050505] text-white py-24 px-6 relative overflow-hidden"
         >
             {/* Background Decor */}

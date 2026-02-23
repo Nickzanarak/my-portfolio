@@ -7,7 +7,19 @@ import Resume from './pages/Resume';
 import Transcript from './pages/Transcript';
 import Contact from './pages/Contact';
 
-// --- ส่วน Navbar ดีไซน์ใหม่ (Floating Capsule) ---
+// --- 1. เพิ่ม Component ScrollToTop เพื่อรีเซ็ตตำแหน่ง Scroll ---
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // สั่งให้เลื่อนไปบนสุดแบบทันที (Instant) เมื่อ pathname เปลี่ยน
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+// --- ส่วน Navbar ดีไซน์เดิมที่คุณส่งมา ---
 function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -29,10 +41,7 @@ function Navbar() {
   return (
     <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${scrolled ? 'py-4' : 'py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-center">
-        {/* Floating Capsule Background */}
         <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 px-6 py-2 md:px-8 md:py-3 rounded-full flex items-center gap-4 md:gap-8 relative overflow-hidden shadow-2xl">
-          
-          {/* แสงวิ่งแวบๆ (Hover Effect) */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
 
           {navLinks.map((link) => {
@@ -42,8 +51,6 @@ function Navbar() {
                 <span className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] italic transition-all duration-300 ${isActive ? 'text-blue-400' : 'text-gray-400 group-hover:text-white'}`}>
                   {link.name}
                 </span>
-
-                {/* เส้นใต้สีฟ้าวิ่งตาม (Framer Motion) */}
                 {isActive && (
                   <motion.div 
                     layoutId="nav-pill"
@@ -60,7 +67,6 @@ function Navbar() {
   );
 }
 
-// --- ส่วน Routes แอนิเมชันตอนเปลี่ยนหน้า ---
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -86,18 +92,17 @@ function App() {
 
   return (
     <Router>
+      {/* --- 2. เรียกใช้ ScrollToTop ภายใน Router --- */}
+      <ScrollToTop />
+      
       <div className="relative min-h-screen w-full overflow-x-hidden bg-[#050505]">
-        
-        {/* Progress Bar (ปรับให้บางและดูแพงขึ้น) */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-600 to-indigo-600 origin-left z-[110]"
           style={{ scaleX }}
         />
 
-        {/* New Navigation */}
         <Navbar />
 
-        {/* ส่วนแสดงผลหลัก */}
         <main className="relative z-10">
           <AnimatedRoutes />
         </main>

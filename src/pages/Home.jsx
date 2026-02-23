@@ -27,33 +27,30 @@ export default function Home() {
                 fullScreen: { enable: true, zIndex: -1 },
                 background: { color: "#050505" }, 
                 particles: {
-                    color: { value: "#3b82f6" }, // เปลี่ยนเป็นสีฟ้าที่สว่างขึ้น (Blue-500)
+                    color: { value: "#3b82f6" }, 
                     links: { 
                         color: "#3b82f6", 
                         distance: 150, 
                         enable: true, 
-                        opacity: 0.5, // เพิ่มความสว่างของเส้นจาก 0.2 เป็น 0.5
-                        width: 1.5    // เพิ่มความหนาของเส้นเล็กน้อยเพื่อให้ดูคมชัด
+                        opacity: 0.5, 
+                        width: 1.5    
                     },
                     move: { enable: true, speed: 1.2, outModes: { default: "bounce" } },
-                    number: { value: 70, density: { enable: true, area: 800 } }, // เพิ่มจำนวนจุดเล็กน้อย
+                    number: { value: 70, density: { enable: true, area: 800 } }, 
                     opacity: { 
-                        value: 0.6, // เพิ่มความสว่างของจุด
+                        value: 0.6, 
                         animation: { enable: true, speed: 1, minimumValue: 0.2, sync: false } 
                     },
                     size: { value: { min: 1, max: 3 } },
                 },
                 interactivity: {
                     events: { 
-                        onHover: { 
-                            enable: true, 
-                            mode: "grab" // เมื่อเมาส์ไปใกล้ เส้นจะดึงเข้าหาเมาส์
-                        } 
+                        onHover: { enable: true, mode: "grab" } 
                     },
                     modes: { 
                         grab: { 
                             distance: 220, 
-                            links: { opacity: 0.8 } // เมื่อเมาส์จ่อ เส้นจะสว่างเป็นพิเศษ (0.8)
+                            links: { opacity: 0.8 } 
                         } 
                     }
                 }
@@ -90,56 +87,76 @@ export default function Home() {
         }
     };
 
+    // --- New Animation Variants สำหรับหน้า Home ---
+    const homeVariants = {
+        initial: { opacity: 0, scale: 0.8, rotateX: 20 },
+        animate: { 
+            opacity: 1, 
+            scale: 1, 
+            rotateX: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+        },
+        exit: { opacity: 0, scale: 1.1, rotateX: -10, transition: { duration: 0.4 } }
+    };
+
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-64px)] w-full overflow-hidden bg-[#050505] text-white">
-            {particlesComponent}
+        <motion.div
+            variants={homeVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="perspective-1000"
+        >
+            <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-64px)] w-full overflow-hidden bg-[#050505] text-white">
+                {particlesComponent}
 
-            <div className="relative z-10 text-center px-4 w-full pt-8 pb-2"> 
-                <h1 className="font-extrabold text-white mb-4 leading-tight flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-4 overflow-visible whitespace-nowrap">
-                    <span className="shrink-0" style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
-                        สวัสดีครับ ผม
-                    </span>
-                    <div className="inline-flex items-center shrink-0">
-                        <span className="text-blue-500 border-r-4 border-blue-500 animate-pulse"
-                              style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
-                            {words[index].substring(0, subIndex)}
+                <div className="relative z-10 text-center px-4 w-full pt-8 pb-2"> 
+                    <h1 className="font-extrabold text-white mb-4 leading-tight flex flex-row flex-nowrap items-center justify-center gap-3 md:gap-4 overflow-visible whitespace-nowrap">
+                        <span className="shrink-0" style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
+                            สวัสดีครับ ผม
                         </span>
-                    </div>
-                </h1>
-                
-                <p className="text-base md:text-lg text-gray-400 mb-8 max-w-xl mx-auto font-medium leading-snug italic">
-                    นักศึกษา Electronics Computer จาก พระจอมเกล้าพระนครเหนือ <br className="hidden md:block" />
-                    ผู้หลงใหลในการสร้างสรรค์ AI และ Web Application
-                </p>
+                        <div className="inline-flex items-center shrink-0">
+                            <span className="text-blue-500 border-r-4 border-blue-500 animate-pulse"
+                                style={{ fontSize: "clamp(1.5rem, 5vw, 3.8rem)" }}>
+                                {words[index].substring(0, subIndex)}
+                            </span>
+                        </div>
+                    </h1>
+                    
+                    <p className="text-base md:text-lg text-gray-400 mb-8 max-w-xl mx-auto font-medium leading-snug italic">
+                        นักศึกษา Electronics Computer จาก พระจอมเกล้าพระนครเหนือ <br className="hidden md:block" />
+                        ผู้หลงใหลในการสร้างสรรค์ AI และ Web Application
+                    </p>
 
-                <div className="flex flex-wrap justify-center gap-4 mb-4">
-                    <Link 
-                        to="/resume" 
-                        className="w-40 bg-blue-600 text-white py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(37,99,235,0.4)] hover:bg-blue-700 shadow-lg text-center text-sm text-nowrap"
-                    >
-                        ดูผลงานของผม
-                    </Link>
-                    <Link 
-                        to="/contact" 
-                        className="w-40 bg-transparent text-white border-2 border-white/20 py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/10 hover:border-white/40 shadow-md text-center text-sm text-nowrap"
-                    >
-                        ติดต่อผม
-                    </Link>
+                    <div className="flex flex-wrap justify-center gap-4 mb-4">
+                        <Link 
+                            to="/resume" 
+                            className="w-40 bg-blue-600 text-white py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(37,99,235,0.4)] hover:bg-blue-700 shadow-lg text-center text-sm text-nowrap"
+                        >
+                            ดูผลงานของผม
+                        </Link>
+                        <Link 
+                            to="/contact" 
+                            className="w-40 bg-transparent text-white border-2 border-white/20 py-3 rounded-xl font-bold transition-all duration-300 transform hover:-translate-y-1 hover:bg-white/10 hover:border-white/40 shadow-md text-center text-sm text-nowrap"
+                        >
+                            ติดต่อผม
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="w-full overflow-hidden py-8 z-10"> 
+                    <motion.div className="flex gap-8 w-max px-4" variants={marqueeVariants} animate="animate">
+                        {[1, 2, 3, 4, 5].map((set) => (
+                            <div key={set} className="flex gap-8 pr-8 items-center">
+                                <HighlightCard title="Build Intelligent Systems" desc="ออกแบบระบบ AI ที่นำไปใช้งานจริง" />
+                                <HighlightCard title="Develop Scalable Web Apps" desc="พัฒนา Web Application ที่ขยายต่อได้" />
+                                <HighlightCard title="Bridge Hardware & Software" desc="เชื่อมโลก Electronics กับ Software" />
+                            </div>
+                        ))}
+                    </motion.div>
                 </div>
             </div>
-
-            <div className="w-full overflow-hidden py-8 z-10"> 
-                <motion.div className="flex gap-8 w-max px-4" variants={marqueeVariants} animate="animate">
-                    {[1, 2, 3, 4, 5].map((set) => (
-                        <div key={set} className="flex gap-8 pr-8 items-center">
-                            <HighlightCard title="Build Intelligent Systems" desc="ออกแบบระบบ AI ที่นำไปใช้งานจริง" />
-                            <HighlightCard title="Develop Scalable Web Apps" desc="พัฒนา Web Application ที่ขยายต่อได้" />
-                            <HighlightCard title="Bridge Hardware & Software" desc="เชื่อมโลก Electronics กับ Software" />
-                        </div>
-                    ))}
-                </motion.div>
-            </div>
-        </div>
+        </motion.div>
     );
 }
 
