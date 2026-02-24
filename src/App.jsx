@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import Home from './pages/home'; 
+import Home from './pages/Home';
 import About from './pages/About';
 import Resume from './pages/Resume';
 import Transcript from './pages/Transcript';
@@ -52,7 +52,7 @@ function Navbar() {
                   {link.name}
                 </span>
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="nav-pill"
                     className="absolute -bottom-1 left-0 w-full h-[2px] bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.8)]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -94,7 +94,7 @@ function App() {
     <Router>
       {/* --- 2. เรียกใช้ ScrollToTop ภายใน Router --- */}
       <ScrollToTop />
-      
+
       <div className="relative min-h-screen w-full overflow-x-hidden bg-[#050505]">
         <motion.div
           className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-600 to-indigo-600 origin-left z-[110]"
